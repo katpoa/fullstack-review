@@ -12,7 +12,8 @@ let repoSchema = mongoose.Schema({
   owner_id: Number,
   repo_name: String,
   description: String,
-  forksByWatchers: Number
+  forksByWatchers: Number,
+  url: String
 
 });
 
@@ -36,7 +37,8 @@ let saveRepo = (repo, callback) => {
     owner_id: repo.owner.id,
     repo_name: repo.name,
     description: repo.description,
-    forksByWatchers: forksByWatchers(repo)
+    forksByWatchers: forksByWatchers(repo),
+    url: repo.html_url
   });
   console.log(gits);
   // gits.create()

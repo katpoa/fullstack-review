@@ -7,8 +7,8 @@ const RepoList = (props) => (
     There are {props.repos.length} repos.
     <div>
       {props.repos.map(repo => (
-        <div key={repo.id}>
-          <h3>{repo.repo_name}</h3>
+        <div key={repo.id} className="repo">
+          <a href={repo.url}>{repo.repo_name}</a>
           <ListEntry repo={repo}/>
         </div>
       ))}

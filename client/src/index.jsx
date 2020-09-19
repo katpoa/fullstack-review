@@ -35,7 +35,7 @@ class App extends React.Component {
         handle: [term]
       }
     })
-    .then(this.getAll)
+    .then(this.getAll())
     .catch(err => (console.log(err)))
   }
 

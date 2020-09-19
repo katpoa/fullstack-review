@@ -1,0 +1,15 @@
+.repo {
+  border: 2px solid rgb(218, 211, 218);
+}
+#app {
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(28, 96, 151);
+}
+li {
+  font-family: cursive;
+  color: rgb(65, 70, 75)
+}
+.url {
+  color: #2285f7;
+  font-family: Arial, Helvetica, sans-serif
+}
