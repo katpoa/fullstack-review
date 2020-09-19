@@ -13,3 +13,23 @@ li {
   color: #2285f7;
   font-family: Arial, Helvetica, sans-serif
 }
+a {
+  text-decoration: none;
+  color: #2285f7;
+}
+/* .list-item {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border: 2px solid whitesmoke;
+  margin: 10px;
+  border-radius: 5px;
+  background-color: #230f2e;
+  transition-duration: .2s;
+} */
+.repo:hover {
+  border-color: black;
+  background-image: linear-gradient(115deg,#a8f1ba,#f3e4a6,#c09ae7,#95dbf7,#8be9b0);  color: #2e2e2e;
+}

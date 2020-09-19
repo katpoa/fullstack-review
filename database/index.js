@@ -7,7 +7,7 @@ db.once('open', console.log.bind(console, 'connection opened!'));
 
 let repoSchema = mongoose.Schema({
 
-  id: Number,
+  id: Number, // {type: String, unique: true}
   handle: String,
   owner_id: Number,
   repo_name: String,
@@ -28,7 +28,7 @@ let saveRepo = (repo, callback) => {
     }
     return repo.forks / repo.watchers;
   };
-
+  //findByIdAndUpdate(repo.id, {upsert: true})
   Repo.findByIdAndRemove(repo.id, () => (console.log('found duplicate and removed~!')));
 
   let gits = new Repo ({
@@ -38,23 +38,17 @@ let saveRepo = (repo, callback) => {
     repo_name: repo.name,
     description: repo.description,
     forksByWatchers: forksByWatchers(repo),
+    // forksByWatchers: repo.forks,
     url: repo.html_url
   });
-  console.log(gits);
+  // console.log(gits);
   // gits.create()
-  gits.save((err, results) => {
-    console.log(results);
-    if (err) {
-      callback(err)
-    } else {
-      callback(null, results)
-    }
-  });
+
+  gits.save();
 }
 
-// saveRepo()
 let getRepos = (callback) => {
-  db.collection('repos').find().limit(25).sort([['forksByWatchers', -1]]).toArray(
+  db.collection('repos').find().sort([['forksByWatchers', -1]]).limit(25).toArray(
     (err, data) => {
       if (err) {
         callback(err)

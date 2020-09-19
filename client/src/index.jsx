@@ -11,19 +11,24 @@ class App extends React.Component {
     this.state = {
       repos: []
     }
+    this.getAll = this.getAll.bind(this);
   }
 
   componentDidMount() {
-    this.getAll()
+    this.getAll();
   }
 
   getAll() {
-    axios('/repos')
+    console.log('getAll triggered!')
+    axios.get('/repos') //success sent back too soon???
     .then(repos => {
       this.setState({
         repos: repos.data
+      }, () => {
+        console.log('current state: ', this.state)
       })
     })
+    .catch(err => console.log(err));
   }
 
   search (term) {
@@ -35,15 +40,17 @@ class App extends React.Component {
         handle: [term]
       }
     })
-    .then(this.getAll())
+    .then(() => {
+      this.getAll()
+    })
     .catch(err => (console.log(err)))
   }
 
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
-      <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
+      <RepoList repos={this.state.repos}/>
     </div>)
   }
 }

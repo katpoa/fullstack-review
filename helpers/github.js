@@ -13,10 +13,13 @@ let getReposByUsername = (handle, callback) => {
       'Authorization': `token ${config.TOKEN}`
     }
   };
-  axios(`https://api.github.com/users/${handle}/repos`, options)
+  axios.get(`https://api.github.com/users/${handle}/repos`, options)
   // .then(data => (console.log("getReposbyusername: ", data)))
-  .then(results => (callback(results.data)))
-  .catch(err => (console.log(err)))
+  .then(results => (callback(null, results.data)))
+  .catch(err => {
+    console.log('error in github api GET')
+    callback(err)
+  })
 }
 
 module.exports = getReposByUsername;
