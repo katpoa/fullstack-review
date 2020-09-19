@@ -5,8 +5,6 @@ let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
 db.once('open', console.log.bind(console, 'connection opened!'));
 
-
-
 let repoSchema = mongoose.Schema({
 
   id: Number,
@@ -30,7 +28,8 @@ let saveRepo = (repo, callback) => {
     return repo.forks / repo.watchers;
   };
 
-  //findOneAndRemove
+  Repo.findByIdAndRemove(repo.id, () => (console.log('found duplicate and removed~!')));
+
   let gits = new Repo ({
     id: repo.id,
     handle: repo.owner.login,
@@ -40,6 +39,7 @@ let saveRepo = (repo, callback) => {
     forksByWatchers: forksByWatchers(repo)
   });
   console.log(gits);
+  // gits.create()
   gits.save((err, results) => {
     console.log(results);
     if (err) {
@@ -52,7 +52,7 @@ let saveRepo = (repo, callback) => {
 
 // saveRepo()
 let getRepos = (callback) => {
-  const data = db.collection('repos').find().toArray(
+  db.collection('repos').find().limit(25).sort([['forksByWatchers', -1]]).toArray(
     (err, data) => {
       if (err) {
         callback(err)
@@ -60,7 +60,7 @@ let getRepos = (callback) => {
         callback(null, data)
       }
     }
-  )
+  );
 }
 
 module.exports.saveRepo = saveRepo;

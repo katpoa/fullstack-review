@@ -37,17 +37,20 @@ app.get('/repos', function (req, res) {
   // This route should send back the top 25 repos
   //mongodb query all repos
 
-  db.getRepos((err, data) => {
-    if (err) {
-      console.log('error: ', err)
-      res.statusCode = 400;
-      res.end(err);
-    } else {
-      console.log('success! retrieved repos', data)
-      res.statusCode = 200;
-      res.end(JSON.stringify(data));
-    }
+  db.getRepos(
+    (err, data) => {
+      if (err) {
+        console.log('error: ', err)
+        res.statusCode = 400;
+        res.end(err);
+      } else {
+        res.statusCode = 200;
+        res.end(JSON.stringify(data));
+      }
   });
+
+  // all.filter()
+
 });
 
 let port = 1128;
